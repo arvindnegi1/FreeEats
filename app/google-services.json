@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "636170226448",
+    "firebase_url": "https://freeeats-f2c35.firebaseio.com",
+    "project_id": "freeeats-f2c35",
+    "storage_bucket": "freeeats-f2c35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636170226448:android:99458209e1cc374bc3b395",
+        "android_client_info": {
+          "package_name": "com.negi.mach15group.freeeats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636170226448-kg5mg9t448t8ffri9bfahq1q4kbrna6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.negi.mach15group.freeeats",
+            "certificate_hash": "45c0b7a4a0169b20eb505ded70a740e8f4492b40"
+          }
+        },
+        {
+          "client_id": "636170226448-vi739cql7f2q6ck472k85ibe0c8flgis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfls6KxER5V1fgwAR968-d3r2D1WcnFso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636170226448-vi739cql7f2q6ck472k85ibe0c8flgis.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
