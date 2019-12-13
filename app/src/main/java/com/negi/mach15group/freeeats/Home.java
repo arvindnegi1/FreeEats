@@ -43,7 +43,7 @@ import java.util.Locale;
 public class Home extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private double latitude, longitude;
-    private GPSTracker gpsTracker;
+
     private LatLng currentLatLong;
 RecyclerView recyclerView;
 ProductAdapter adapter;
@@ -74,23 +74,32 @@ DatabaseReference mref;
 
 GPSTracker gpsTracker;
 gpsTracker=new GPSTracker(getContext());
+final double curlat,curlon;
+final Location location;
+curlat=gpsTracker.getLatitude();
+curlon=gpsTracker.getLongitude();
+location=gpsTracker.getLocation();
      mref.addValueEventListener(new ValueEventListener() {
 
 
          @Override
          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             for(DataSnapshot ds:dataSnapshot.getChildren())
-            {
-                Item item=new Item(ds.child("event_name").getValue().toString(),
-                        ds.child("item").getValue().toString(),
-                        ds.child("start_time").getValue().toString(),
-                        ds.child("stop_time").getValue().toString(),
-                        "free",
+            {  Double endlat=Double.parseDouble(String.valueOf(ds.child("lat").getValue()));
+                   Double endlon= Double.parseDouble(String.valueOf(ds.child("lon").getValue()));
+               float result[]=new float[10];
+                   location.distanceBetween(curlat,curlon,endlat,endlon,result);
+                if(result[0]<1000) {
+                    Item item = new Item(ds.child("event_name").getValue().toString(),
+                            ds.child("item").getValue().toString(),
+                            ds.child("start_time").getValue().toString(),
+                            ds.child("stop_time").getValue().toString(),
+                            "free",
                             R.drawable.logoeats,
-                        Double.parseDouble(String.valueOf(ds.child("lat").getValue())),
-                        Double.parseDouble(String.valueOf(ds.child("lon").getValue()))
+                            endlat, endlon
                     );
-                itemList.add(item);
+                    itemList.add(item);
+                }
             }
              adapter=new ProductAdapter(getContext(),itemList);
 
