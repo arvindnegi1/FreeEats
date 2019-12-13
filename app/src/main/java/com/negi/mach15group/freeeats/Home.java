@@ -43,7 +43,7 @@ import java.util.Locale;
 public class Home extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private double latitude, longitude;
-
+    private ArrayList<LatLng>latLngs;
     private LatLng currentLatLong;
 RecyclerView recyclerView;
 ProductAdapter adapter;
@@ -59,7 +59,7 @@ DatabaseReference mref;
                 .findFragmentById(R.id.map);
         // Inflate the layout for this fragment
                 itemList=new ArrayList<>();
-
+        latLngs=new ArrayList<>();
                 firebaseDatabase=FirebaseDatabase.getInstance();
                 mref=firebaseDatabase.getReference("User");
       recyclerView=(RecyclerView)view.findViewById(R.id.recycle);
@@ -98,9 +98,13 @@ location=gpsTracker.getLocation();
                             R.drawable.logoeats,
                             endlat, endlon
                     );
+                    latLngs.add(new LatLng(endlat,endlon));
                     itemList.add(item);
                 }
             }
+             for(LatLng point:latLngs){
+                 mMap.addMarker(new MarkerOptions().position(point).title("You are here"));
+             }
              adapter=new ProductAdapter(getContext(),itemList);
 
              recyclerView.setAdapter(adapter);
@@ -162,5 +166,6 @@ location=gpsTracker.getLocation();
                 .zoom(17)
                 .build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-    }
+
+  }
 }
