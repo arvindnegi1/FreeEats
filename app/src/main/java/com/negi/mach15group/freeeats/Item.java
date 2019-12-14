@@ -9,9 +9,9 @@ public class Item {
    private String item;
     private Double lat,lon;
     private int images;
+    private String phone;
 
-
-    public Item(String event_name,String item, String start_time,String stop_time, String type, int images, Double lat, Double lon) {
+    public Item(String event_name,String item, String start_time,String stop_time, String type, int images, Double lat, Double lon,String phone) {
 
         this.event_name = event_name;
         this.item = item;
@@ -21,7 +21,16 @@ public class Item {
         this.type = type;
         this.lat=lat;
         this.lon=lon;
+        this.phone=phone;
         this.images = images;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Double getLat() {

@@ -126,7 +126,7 @@ GPSTracker gps;
             @Override
             public void onClick(View v) {
                 //Item(String event_name, String item_list, String start_stop_time,  String type, int images, String lat, String lon)
-                Item item=new Item(event.getText().toString(),list,startTimeET.getText().toString(),endTimeET.getText().toString(),"FREE",R.drawable.logoeats,gps.getLatitude(),gps.getLongitude());
+                Item item=new Item(event.getText().toString(),list,startTimeET.getText().toString(),endTimeET.getText().toString(),"FREE",R.drawable.logoeats,gps.getLatitude(),gps.getLongitude(),mobile);
                 final String curdate;
                  curdate=java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
                 mref.child(curdate).setValue(item).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -2,6 +2,7 @@ package com.negi.mach15group.freeeats;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -47,6 +48,8 @@ public class Home extends Fragment implements OnMapReadyCallback {
     private LatLng currentLatLong;
 RecyclerView recyclerView;
 ProductAdapter adapter;
+SharedPreferences sharedPreferences;
+String mobile;
 List<Item> itemList;
 FirebaseDatabase firebaseDatabase;
 DatabaseReference mref;
@@ -60,6 +63,8 @@ DatabaseReference mref;
         // Inflate the layout for this fragment
                 itemList=new ArrayList<>();
         latLngs=new ArrayList<>();
+        sharedPreferences=getContext().getSharedPreferences("Session",Context.MODE_PRIVATE);
+            mobile=sharedPreferences.getString("email",null);
                 firebaseDatabase=FirebaseDatabase.getInstance();
                 mref=firebaseDatabase.getReference("User");
       recyclerView=(RecyclerView)view.findViewById(R.id.recycle);
@@ -97,6 +102,8 @@ location=gpsTracker.getLocation();
                             "free",
                             R.drawable.logoeats,
                             endlat, endlon
+                            ,ds.child("phone").getValue().toString()
+
                     );
                     latLngs.add(new LatLng(endlat,endlon));
                     itemList.add(item);
