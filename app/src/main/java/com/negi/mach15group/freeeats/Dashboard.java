@@ -35,6 +35,9 @@ public class Dashboard extends AppCompatActivity {
                     case R.id.My_event:
                         loadFragment(new My_event());
                         return  true;
+                    case R.id.MyProfile:
+                        loadFragment(new MyProfile());
+                        return  true;
                 }
                 return false;
             }

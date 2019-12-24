@@ -17,7 +17,8 @@
         android:title="MY EVENT" />
 
     <item
-        android:id="@+id/Profile"
+        android:id="@+id/MyProfile"
         android:icon="@drawable/my_profile"
         android:title="PROFILE" />
+
 </menu>

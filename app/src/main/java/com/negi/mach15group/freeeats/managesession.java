@@ -36,6 +36,15 @@ public class managesession {
         editor.putString(KEY_NAME, name);
         editor.commit();
     }
+    public String getname()
+    {
+        return  pref.getString(KEY_NAME,"abc");
+
+    }
+    public String getPhone()
+    {
+        return pref.getString(KEY_MOBILE,"undefined");
+    }
     //check login
     public void checkLogin(){
         // Check login status
