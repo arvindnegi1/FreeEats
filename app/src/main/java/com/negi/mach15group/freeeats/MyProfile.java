@@ -25,9 +25,8 @@ TextView phone,name;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_my_profile, container, false);
-    phone=v.findViewById(R.id.phone);
-    name=v.findViewById(R.id.name);
-    logout=v.findViewById(R.id.signout);
+    //phone=v.findViewById(R.id.phone);
+
   ms=new managesession(this.getContext());
   /* try {
        phone.setText(ms.getPhone());
@@ -40,12 +39,12 @@ TextView phone,name;
 
         sharedPreferences=getContext().getSharedPreferences("Session",Context.MODE_PRIVATE);
       // phone.setText(sharedPreferences.getString("email",null));
-    logout.setOnClickListener(new View.OnClickListener() {
+    /*logout.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             ms.logoutUser();
         }
-    });
+    });*/
     return v;
     }
 

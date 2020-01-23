@@ -1,5 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_margin="20sp"
+    app:cardCornerRadius="5sp"
+    app:cardElevation="10sp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500sp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RATE THE DESTINATION"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/dancing"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="120sp"
+            android:src="@drawable/logoeats"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thank you from, behalf of Freeeats"
+            android:textAlignment="center"/>
+    </LinearLayout>
+    <androidx.appcompat.widget.AppCompatRatingBar
+            android:layout_width="match_parent"
+            android:layout_marginTop="100sp"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+
+            android:rating="3.5"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="100sp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SUBMIT"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,3 +85,4 @@
 
 
 </LinearLayout>
+</RelativeLayout>
