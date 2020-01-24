@@ -8,11 +8,15 @@
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:layout_margin="20sp"
+android:id="@+id/crd"
+android:visibility="gone"
     app:cardCornerRadius="5sp"
     app:cardElevation="10sp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="500sp"
+
+        android:id="@+id/feedback"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
@@ -53,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SUBMIT"
+                android:id="@+id/feedsubmit"
                 android:layout_gravity="center"
                 />
         </LinearLayout>

@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,21 +56,42 @@ String mobile;
 List<Item> itemList;
 FirebaseDatabase firebaseDatabase;
 DatabaseReference mref;
+LinearLayout linearLayout;
+SharedPreferences pref;
+SharedPreferences.Editor editor;
+Button feedsubmit;
+MaterialCardView mcv;
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(),"onResume",Toast.LENGTH_SHORT).show();
+        pref=getContext().getSharedPreferences("Destination",Context.MODE_PRIVATE);
+        editor=pref.edit();
+        mcv.setVisibility(View.GONE);
 
-public void onResume() {
 
-    super.onResume();
+        if(pref.getBoolean("ischange",false)){
+            mcv.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.VISIBLE);
+            editor.putBoolean("ischange",false);
+            editor.commit();
+        }
+    }
 
-}
-@Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
                 .findFragmentById(R.id.map);
+        linearLayout= view.findViewById(R.id.feedback);
+        linearLayout.setVisibility(View.INVISIBLE);
+        feedsubmit= view.findViewById(R.id.feedsubmit);
+        mcv=view.findViewById(R.id.crd);
         // Inflate the layout for this fragment
                 itemList=new ArrayList<>();
         latLngs=new ArrayList<>();
+
         sharedPreferences=getContext().getSharedPreferences("Session",Context.MODE_PRIVATE);
             mobile=sharedPreferences.getString("email",null);
                 firebaseDatabase=FirebaseDatabase.getInstance();
@@ -80,7 +104,12 @@ public void onResume() {
 
       recyclerView.setHasFixedSize(true);
       recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+feedsubmit.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        linearLayout.setVisibility(View.GONE);
+    }
+});
 
 GPSTracker gpsTracker;
 gpsTracker=new GPSTracker(getContext());
@@ -89,6 +118,7 @@ final Location location;
 curlat=gpsTracker.getLatitude();
 curlon=gpsTracker.getLongitude();
 location=gpsTracker.getLocation();
+
      mref.addValueEventListener(new ValueEventListener() {
 
 
@@ -97,7 +127,7 @@ location=gpsTracker.getLocation();
             for(DataSnapshot ds:dataSnapshot.getChildren())
             {  Double endlat=Double.parseDouble(String.valueOf(ds.child("lat").getValue()));
                    Double endlon= Double.parseDouble(String.valueOf(ds.child("lon").getValue()));
-               float result[]=new float[10];
+               float result[]=new float[2];
                    location.distanceBetween(curlat,curlon,endlat,endlon,result);
                 if(result[0]<1000) {
                     Item item = new Item(ds.child("event_name").getValue().toString(),

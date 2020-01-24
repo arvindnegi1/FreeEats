@@ -2,6 +2,7 @@ package com.negi.mach15group.freeeats;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.itemList = itemList;
     }
 
+SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     @NonNull
     @Override
@@ -65,8 +68,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        pref=context.getSharedPreferences("Destination",Context.MODE_PRIVATE);
+                        editor=pref.edit();
+                        editor.putBoolean("ischange",true);
+
+                        editor.commit();
                         String destination = "http://maps.google.com/maps?q=loc:" + endlat + "," + endlon + " (" + "Food destination"+ ")";
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(destination));
+
                         context.startActivity(intent);
                     }
                 }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
