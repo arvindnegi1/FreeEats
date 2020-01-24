@@ -21,15 +21,15 @@ import com.negi.mach15group.freeeats.GPSTracker;
 import com.negi.mach15group.freeeats.R;
 
 public class Access_location extends AppCompatActivity {
-Button turnon;
-LocationManager manager;
+    Button turnon;
+    LocationManager manager;
     GPSTracker gps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_access_location);
         turnon=findViewById(R.id.turn_on_gps);
-         manager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        manager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         gps=new GPSTracker(Access_location.this);
         if(!gps.canGetLocation()) {
             turnon.setOnClickListener(new View.OnClickListener() {
@@ -63,17 +63,12 @@ LocationManager manager;
                         })
                         .create()
                         .show();
-
             }
             else
             {
                 ActivityCompat.requestPermissions(Access_location.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},90);
             }
-
-
         }
-
-
             return true;
     }*/
 }

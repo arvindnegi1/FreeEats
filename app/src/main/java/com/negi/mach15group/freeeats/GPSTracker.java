@@ -15,6 +15,8 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationRequest;
+
 import static android.content.Context.LOCATION_SERVICE;
 
 public class GPSTracker  extends Service implements LocationListener {
@@ -88,6 +90,7 @@ public class GPSTracker  extends Service implements LocationListener {
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
                         Log.d("GPS Enabled", "GPS Enabled");
                         if (locationManager != null) {
                             loc = locationManager
