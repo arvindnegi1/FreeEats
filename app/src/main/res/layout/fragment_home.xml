@@ -8,8 +8,9 @@
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:layout_margin="20sp"
+    android:backgroundTint="#CCFF99"
 android:id="@+id/crd"
-android:visibility="gone"
+android:visibility="visible"
     app:cardCornerRadius="5sp"
     app:cardElevation="10sp">
     <LinearLayout
@@ -23,8 +24,9 @@ android:visibility="gone"
             android:layout_height="wrap_content"
             android:text="RATE THE DESTINATION"
             android:textSize="22sp"
+            android:layout_marginTop="15sp"
             android:textAlignment="center"
-            android:fontFamily="@font/dancing"/>
+            android:fontFamily="@font/genze"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,26 +35,29 @@ android:visibility="gone"
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="120sp"
-            android:src="@drawable/logoeats"/>
+            android:src="@drawable/logo"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"
+            android:textSize="22sp"
+            android:fontFamily="@font/dancing"
             android:text="Thank you from, behalf of Freeeats"
             android:textAlignment="center"/>
     </LinearLayout>
     <androidx.appcompat.widget.AppCompatRatingBar
-            android:layout_width="match_parent"
-            android:layout_marginTop="100sp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="60sp"
             android:layout_height="wrap_content"
             android:numStars="5"
-
+            android:layout_gravity="center"
             android:rating="3.5"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="100sp">
+            android:layout_marginTop="60sp">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

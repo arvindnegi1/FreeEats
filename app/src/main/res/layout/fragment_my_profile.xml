@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_below="@+id/header_image"
-            android:background="#ebca0707"
+
             android:id="@+id/tur">
             <EditText
                 android:layout_width="match_parent"
@@ -97,17 +97,17 @@
             android:layout_marginTop="160sp"
             android:layout_marginLeft="80sp"
             >
-            <androidx.appcompat.widget.AppCompatImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="150dp"
                 android:layout_height="150sp"
 
 
-                android:scaleType="centerCrop"
+
                 android:layout_gravity="center"
 
                 app:civ_border_width="3sp"
-
-                    android:layout_marginLeft="60sp"
+app:civ_fill_color="@color/colorAccent"
+                    android:layout_marginLeft="30sp"
                 android:src="@drawable/ic_person_black_24dp"
 
                 />
