@@ -9,6 +9,15 @@
     android:background="@drawable/images"
 
     />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Free Eats"
+        android:textAlignment="center"
+        android:textSize="52sp"
+        android:layout_marginTop="50sp"
+        android:textColor="@color/orange9"
+        android:fontFamily="@font/dancing"/>
     <!--<View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,7 +42,7 @@
     android:background="@drawable/cardback"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="435dp"
+        android:layout_height="350dp"
         android:orientation="vertical">
 
         <TextView
@@ -47,8 +56,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginTop="20sp"
             android:paddingTop="10dp"
-
             android:textColorHint="@color/colorAccent"
             >
 
@@ -64,7 +73,7 @@
                     android:baselineAligned="false"
                     android:gravity="center"
                     android:text="+91"
-                    android:textColor="@color/colorAccent"
+
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -77,59 +86,24 @@
                     android:layout_marginRight="20dp"
                     android:background="@drawable/right_round"
                     android:hint="Mobile Number"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:paddingStart="20dp"
 
                     android:textSize="20sp" />
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:paddingTop="10dp"
-            android:layout_marginTop="10dp"
-            android:textColorHint="@color/colorAccent"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp">
-        <EditText
-            android:id="@+id/login_password_et"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
-
-            android:layout_marginRight="20dp"
-            android:background="@drawable/cusdesign"
-            android:hint="password"
-
-            android:inputType="textPassword"
-            android:paddingStart="20dp"
-
-            android:textSize="20dp" />
-            </LinearLayout>
-        </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/login_button"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="30dp"
             android:padding="20dp"
+
             android:text="login" />
 
-        <TextView
-            android:id="@+id/signup_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Don't have an account?"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

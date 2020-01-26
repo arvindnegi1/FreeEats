@@ -15,13 +15,7 @@ TextView tv;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        tv=findViewById(R.id.signup_link);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login.this, signup.class));
-            }
-        });
+
 
     }
 }
