@@ -8,14 +8,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:636170226448:android:99458209e1cc374bc3b395",
+        "mobilesdk_app_id": "1:636170226448:android:a03f7623e1f12ec0c3b395",
         "android_client_info": {
           "package_name": "com.negi.mach15group.freeeats"
         }
       },
       "oauth_client": [
         {
-          "client_id": "636170226448-kg5mg9t448t8ffri9bfahq1q4kbrna6f.apps.googleusercontent.com",
+          "client_id": "636170226448-ej7o2t28tcganpapqv3tkaqtdc6tf9ig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.negi.mach15group.freeeats",
+            "certificate_hash": "f75b762e02b50e948315ad2530d7f152cca37aac"
+          }
+        },
+        {
+          "client_id": "636170226448-vmjdrhc54g87slcgv2e7fmj4tua5dguk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.negi.mach15group.freeeats",
