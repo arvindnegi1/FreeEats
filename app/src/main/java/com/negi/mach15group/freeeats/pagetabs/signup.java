@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit;
 
 public class signup extends AppCompatActivity implements View.OnClickListener {
     private Button button_sign,verify;
-    private EditText fname,lname,email,password,mobile;
+    private EditText fname,lname,email;
     private String mobileno,first_name,last_name,email_assdr,user_password;
     private EditText otp1,otp2,otp3,otp4,otp5,otp6;
     private LinearLayout sign,otp;
@@ -56,8 +56,6 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         fname=findViewById(R.id.fname);
         lname=findViewById(R.id.lname);
         email=findViewById(R.id.email);
-        mobile=findViewById(R.id.phone);
-        password=findViewById(R.id.password);
         button_sign=findViewById(R.id.signup_button);
         sign=findViewById(R.id.layout_sign);
         verify=findViewById(R.id.verify);
@@ -246,10 +244,8 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
                                 @Override
                                 public void onClick(View v) {
                                     if (checkValidity()) {
-                                        if (ContextCompat.checkSelfPermission(signup.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || !manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+
                                             startActivity(new Intent(signup.this, Access_location.class));
-                                        else
-                                            startActivity(new Intent(signup.this, AskForLocation.class));
                                     }
                                 }
                             });

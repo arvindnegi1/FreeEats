@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -24,6 +25,17 @@ public class Access_location extends AppCompatActivity {
     Button turnon;
     LocationManager manager;
     GPSTracker gps;
+    private boolean flag=false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (flag&&gps.canGetLocation()) {
+            startActivity(new Intent(Access_location.this, AskForLocation.class));
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,23 +43,26 @@ public class Access_location extends AppCompatActivity {
         turnon=findViewById(R.id.turn_on_gps);
         manager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         gps=new GPSTracker(Access_location.this);
-        if(!gps.canGetLocation()) {
+        if(!checkLocationPermission())
+            checkLocationPermission();
+        if(gps.canGetLocation()&&checkLocationPermission()) {
+            startActivity(new Intent(Access_location.this, AskForLocation.class));
+            finish();
+        }
+        else {
             turnon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    flag = true;
+                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
-                    gps.showSettingsAlert(35,Access_location.this);
                 }
             });
         }
-        else
-            startActivity(new Intent(Access_location.this,AskForLocation.class));
-
-
 
 
     }
-  /*  public boolean checkLocationPermission(){
+   public boolean checkLocationPermission(){
         if(ContextCompat.checkSelfPermission(Access_location.this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
         {
                if(ActivityCompat.shouldShowRequestPermissionRationale(Access_location.this,Manifest.permission.ACCESS_FINE_LOCATION))
@@ -67,8 +82,11 @@ public class Access_location extends AppCompatActivity {
             else
             {
                 ActivityCompat.requestPermissions(Access_location.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},90);
+
             }
-        }
+        return false;
+        }else {
             return true;
-    }*/
+        }
+    }
 }

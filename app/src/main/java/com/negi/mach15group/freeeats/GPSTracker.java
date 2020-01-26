@@ -131,33 +131,7 @@ public class GPSTracker  extends Service implements LocationListener {
         return this.canGetLocation;
     }
 
-    public void showSettingsAlert(final int requestCode, final Activity activity) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-        alertDialog.setCancelable(false);
 
-        alertDialog.setTitle("Location Disable");
-
-        alertDialog.setMessage("Please enable your Location");
-
-
-        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                activity.startActivityForResult(intent, requestCode);
-            }
-        });
-
-
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                //showSettingsAlert();
-                dialog.cancel();
-            }
-        });
-
-
-        alertDialog.show();
-    }
 
 
     public void stopUsingGPS() {
