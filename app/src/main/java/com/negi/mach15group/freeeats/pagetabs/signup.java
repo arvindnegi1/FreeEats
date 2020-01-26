@@ -50,6 +50,9 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+       Intent intent=getIntent();
+       mobileno=intent.getStringExtra("phone");
+        getVerificationCode(mobileno);
         fname=findViewById(R.id.fname);
         lname=findViewById(R.id.lname);
         email=findViewById(R.id.email);
@@ -71,11 +74,14 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         Dialog=new ProgressDialog(this);
         Dialog.setMessage("verifying");
         Dialog.setTitle("LOADING");
-        button_sign.setOnClickListener(this);
         otp1.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (otp1.getText().length() == 1)
+                if(i==keyEvent.KEYCODE_DEL)
+                {
+                    otp1.requestFocus();
+                }
+                else if (otp1.getText().length() == 1)
                     otp2.requestFocus();
                 return false;
             }
@@ -83,7 +89,16 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         otp2.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (otp2.getText().length() == 1)
+                if(i==keyEvent.KEYCODE_DEL)
+                {
+                    if(otp2.getText().length()==0)
+                    otp1.requestFocus();
+                    else {
+                        otp2.setText("");
+                        otp2.requestFocus();
+                    }
+                }
+                else if (otp2.getText().length() == 1)
                     otp3.requestFocus();
                 return false;
             }
@@ -91,7 +106,16 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         otp3.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (otp3.getText().length() == 1)
+                if(i==keyEvent.KEYCODE_DEL)
+                {
+                    if(otp3.getText().length()==0)
+                        otp2.requestFocus();
+                    else {
+                        otp3.setText("");
+                        otp3.requestFocus();
+                    }
+                }
+                else if (otp3.getText().length() == 1)
                     otp4.requestFocus();
                 return false;
             }
@@ -99,7 +123,16 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         otp4.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (otp4.getText().length() == 1)
+                if(i==keyEvent.KEYCODE_DEL)
+                {
+                    if(otp4.getText().length()==0)
+                        otp3.requestFocus();
+                    else {
+                        otp4.setText("");
+                        otp4.requestFocus();
+                    }
+                }
+                else if (otp4.getText().length() == 1)
                     otp5.requestFocus();
                 return false;
             }
@@ -107,7 +140,33 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         otp5.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (otp5.getText().length() == 1)
+                if(i==keyEvent.KEYCODE_DEL)
+                {
+                    if(otp5.getText().length()==0)
+                        otp4.requestFocus();
+                    else {
+                        otp5.setText("");
+                        otp5.requestFocus();
+                    }
+                }
+                else if (otp5.getText().length() == 1)
+                    otp6.requestFocus();
+                return false;
+            }
+        });
+        otp6.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(i==keyEvent.KEYCODE_DEL)
+                {
+                    if(otp6.getText().length()==0)
+                        otp5.requestFocus();
+                    else {
+                        otp6.setText("");
+                        otp6.requestFocus();
+                    }
+                }
+                else if (otp6.getText().length() == 1)
                     otp6.requestFocus();
                 return false;
             }
@@ -117,19 +176,7 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v==button_sign) {
-            boolean a=checkValidity();
-            if(a==true) {
-
-
-                otp.setVisibility(View.VISIBLE);
-                sign.setVisibility(View.GONE);
-                getVerificationCode(mobile.getText().toString().trim());
-                otp1.requestFocus();
-            }
-
-        }
-        else if(v==verify) {
+        if(v==verify) {
             String otp_verify=otp1.getText().toString()+otp2.getText().toString()+otp3.getText().toString()
                     +otp4.getText().toString()+otp5.getText().toString()+otp6.getText().toString();
                 if(otp_verify.length()!=6){
@@ -193,10 +240,20 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
                             Dialog.dismiss();
                             managesession mg=new managesession(signup.this);
                             mg.createLoginSession(mobileno,"user");
-                            if(ContextCompat.checkSelfPermission(signup.this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED||!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-                            startActivity(new Intent(signup.this,Access_location.class));
-                            else
-                                startActivity(new Intent(signup.this, AskForLocation.class));
+                            otp.setVisibility(View.GONE);
+                            sign.setVisibility(View.VISIBLE);
+                            button_sign.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (checkValidity()) {
+                                        if (ContextCompat.checkSelfPermission(signup.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || !manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                                            startActivity(new Intent(signup.this, Access_location.class));
+                                        else
+                                            startActivity(new Intent(signup.this, AskForLocation.class));
+                                    }
+                                }
+                            });
+
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
@@ -215,8 +272,7 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         first_name=fname.getText().toString().trim();
         last_name=lname.getText().toString().trim();
         email_assdr=email.getText().toString().trim();
-        user_password=password.getText().toString().trim();
-        mobileno=mobile.getText().toString().trim();
+
 
         if(first_name.length()==0) {
             fname.setError("name required");
@@ -225,18 +281,6 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         } else if(last_name.length()==0) {
             lname.setError("last name required");
             lname.requestFocus();
-            return false;
-        }else if (mobileno.length() == 0) {
-            mobile.setError("Mobile Number Required");
-            mobile.requestFocus();
-            return false;
-        } else if (mobileno.length() < 10) {
-            mobile.setError("Mobile Number Invalid");
-            mobile.requestFocus();
-            return false;
-        }else if(user_password.length()==0){
-            password.setError("Password Required");
-            password.requestFocus();
             return false;
         }
     return true;
