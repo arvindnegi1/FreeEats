@@ -1,5 +1,6 @@
 package com.negi.mach15group.freeeats.pagetabs;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -27,10 +28,12 @@ public class Access_location extends AppCompatActivity {
     GPSTracker gps;
     private boolean flag=false;
 
+
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (flag&&gps.canGetLocation()) {
+    protected void onStart() {
+        super.onStart();
+        gps=new GPSTracker(Access_location.this);
+        if(gps.canGetLocation()&&checkLocationPermission()){
             startActivity(new Intent(Access_location.this, AskForLocation.class));
             finish();
         }
@@ -54,7 +57,10 @@ public class Access_location extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     flag = true;
-                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    Intent intent=new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
 
                 }
             });
@@ -89,4 +95,5 @@ public class Access_location extends AppCompatActivity {
             return true;
         }
     }
+
 }
