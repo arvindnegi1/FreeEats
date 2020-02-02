@@ -38,9 +38,9 @@ import java.util.concurrent.TimeUnit;
 
 public class signup extends AppCompatActivity implements View.OnClickListener {
     private Button button_sign,verify;
-    private EditText fname,lname,email;
-    private String mobileno,first_name,last_name,email_assdr,user_password;
-    private EditText otp1,otp2,otp3,otp4,otp5,otp6;
+    private EditText fname,lname;
+    private String mobileno,first_name,last_name;
+    private EditText otp_new;
     private LinearLayout sign,otp;
     private FirebaseAuth mauth;
     private String code,codesent;
@@ -55,128 +55,25 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         getVerificationCode(mobileno);
         fname=findViewById(R.id.fname);
         lname=findViewById(R.id.lname);
-        email=findViewById(R.id.email);
         button_sign=findViewById(R.id.signup_button);
         sign=findViewById(R.id.layout_sign);
         verify=findViewById(R.id.verify);
+        otp_new=findViewById(R.id.otp_new);
         otp=findViewById(R.id.layout_otp);
-        otp1=findViewById(R.id.otp_1);
-        otp2=findViewById(R.id.otp_2);
-        otp3=findViewById(R.id.otp_3);
-        otp4=findViewById(R.id.otp_4);
-        otp5=findViewById(R.id.otp_5);
-        otp6=findViewById(R.id.otp_6);
         manager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
         mauth=FirebaseAuth.getInstance();
         mauth.signOut();
         Dialog=new ProgressDialog(this);
         Dialog.setMessage("verifying");
         Dialog.setTitle("LOADING");
-        otp1.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(i==keyEvent.KEYCODE_DEL)
-                {
-                    otp1.requestFocus();
-                }
-                else if (otp1.getText().length() == 1)
-                    otp2.requestFocus();
-                return false;
-            }
-        });
-        otp2.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(i==keyEvent.KEYCODE_DEL)
-                {
-                    if(otp2.getText().length()==0)
-                    otp1.requestFocus();
-                    else {
-                        otp2.setText("");
-                        otp2.requestFocus();
-                    }
-                }
-                else if (otp2.getText().length() == 1)
-                    otp3.requestFocus();
-                return false;
-            }
-        });
-        otp3.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(i==keyEvent.KEYCODE_DEL)
-                {
-                    if(otp3.getText().length()==0)
-                        otp2.requestFocus();
-                    else {
-                        otp3.setText("");
-                        otp3.requestFocus();
-                    }
-                }
-                else if (otp3.getText().length() == 1)
-                    otp4.requestFocus();
-                return false;
-            }
-        });
-        otp4.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(i==keyEvent.KEYCODE_DEL)
-                {
-                    if(otp4.getText().length()==0)
-                        otp3.requestFocus();
-                    else {
-                        otp4.setText("");
-                        otp4.requestFocus();
-                    }
-                }
-                else if (otp4.getText().length() == 1)
-                    otp5.requestFocus();
-                return false;
-            }
-        });
-        otp5.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(i==keyEvent.KEYCODE_DEL)
-                {
-                    if(otp5.getText().length()==0)
-                        otp4.requestFocus();
-                    else {
-                        otp5.setText("");
-                        otp5.requestFocus();
-                    }
-                }
-                else if (otp5.getText().length() == 1)
-                    otp6.requestFocus();
-                return false;
-            }
-        });
-        otp6.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(i==keyEvent.KEYCODE_DEL)
-                {
-                    if(otp6.getText().length()==0)
-                        otp5.requestFocus();
-                    else {
-                        otp6.setText("");
-                        otp6.requestFocus();
-                    }
-                }
-                else if (otp6.getText().length() == 1)
-                    otp6.requestFocus();
-                return false;
-            }
-        });
+
         verify.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v==verify) {
-            String otp_verify=otp1.getText().toString()+otp2.getText().toString()+otp3.getText().toString()
-                    +otp4.getText().toString()+otp5.getText().toString()+otp6.getText().toString();
+            String otp_verify=otp_new.getText().toString();
                 if(otp_verify.length()!=6){
                     Toast.makeText(signup.this,"INVALID OTP",Toast.LENGTH_SHORT).show();
                 }
@@ -236,8 +133,8 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
                             Toast.makeText(signup.this, "Login Success", Toast.LENGTH_SHORT).show();
 
                             Dialog.dismiss();
-                            managesession mg=new managesession(signup.this);
-                            mg.createLoginSession(mobileno,"user");
+                            final managesession mg=new managesession(signup.this);
+
                             otp.setVisibility(View.GONE);
                             sign.setVisibility(View.VISIBLE);
                             button_sign.setOnClickListener(new View.OnClickListener() {
@@ -245,7 +142,8 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
                                 public void onClick(View v) {
                                     if (checkValidity()) {
 
-                                            startActivity(new Intent(signup.this, Access_location.class));
+                                        mg.createLoginSession(mobileno,first_name+last_name);
+                                        startActivity(new Intent(signup.this, Access_location.class));
                                     }
                                 }
                             });
@@ -267,7 +165,7 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
     {
         first_name=fname.getText().toString().trim();
         last_name=lname.getText().toString().trim();
-        email_assdr=email.getText().toString().trim();
+
 
 
         if(first_name.length()==0) {

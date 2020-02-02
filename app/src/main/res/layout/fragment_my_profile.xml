@@ -42,10 +42,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:id="@+id/username"
                 android:layout_marginTop="90sp"
                 android:textSize="20sp"
-                android:text="ARVIND NEGI"/>
+                android:hint="NAME"/>
             <EditText
+                android:id="@+id/profilephone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
