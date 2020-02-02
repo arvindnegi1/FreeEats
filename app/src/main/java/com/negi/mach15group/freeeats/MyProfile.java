@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,9 @@ Button logout;
 TextView phone,name,loct;
     managesession ms;
     Double latitude,longitude;
+    ImageView edit_detail;
     String address;
+    Button changename;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,7 +39,22 @@ TextView phone,name,loct;
     //phone=v.findViewById(R.id.phone);
         phone=v.findViewById(R.id.profilephone);
         name=v.findViewById(R.id.username);
-    loct=v.findViewById(R.id.loc);
+        loct=v.findViewById(R.id.loc);
+        edit_detail=v.findViewById(R.id.edit_detail);
+        changename=v.findViewById(R.id.changename);
+        ms=new managesession(this.getContext());
+        changename.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ms.createLoginSession(ms.getPhone(),name.getText().toString());
+                changename.setVisibility(View.GONE);
+                name.requestFocus();
+                name.setClickable(false);
+                name.setFocusable(false);
+                name.setFocusableInTouchMode(false);
+
+            }
+        });
        GPSTracker gpsTracker = new GPSTracker(getContext());
         if (gpsTracker.canGetLocation()) {
 
@@ -53,17 +71,32 @@ TextView phone,name,loct;
             Toast.makeText(getContext(), "Can't Fetch Location", Toast.LENGTH_SHORT).show();
 
         }
-  ms=new managesession(this.getContext());
   try {
-       phone.setText(ms.getPhone());
+       phone.setText(" +91" +"  "+ms.getPhone());
        name.setText(ms.getname());
+       phone.setClickable(false);
+      name.setClickable(false);
+      name.setFocusable(false);
+      name.setFocusableInTouchMode(false);
+      phone.setFocusable(false);
+      phone.setFocusableInTouchMode(false);
    }
    catch (Exception e)
    {
        e.printStackTrace();
        Toast.makeText(getContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
    }
+    edit_detail.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            name.setClickable(true);
+            name.setFocusable(true);
+            name.setFocusableInTouchMode(true);
+            name.requestFocus();
+            changename.setVisibility(View.VISIBLE);
 
+        }
+    });
 
       // phone.setText(sharedPreferences.getString("email",null));
     /*logout.setOnClickListener(new View.OnClickListener() {
